@@ -9,10 +9,12 @@ import rule.realism as realism
 import rule.sexism as sexism
 import rule.tech as tech
 
+
 def joblint(content):
     linter = linter_class.create()
     inject_rules_into_linter(linter)
     return linter.lint(content)
+
 
 def inject_rules_into_linter(linter):
     bro_culture.define_rules(linter)
@@ -23,10 +25,10 @@ def inject_rules_into_linter(linter):
     sexism.define_rules(linter)
     tech.define_rules(linter)
 
+
 def main():
     result = joblint(sys.argv[1])
     lintlog.report(result, {'verbose': False})
 
 if __name__ == "__main__":
     main()
-
