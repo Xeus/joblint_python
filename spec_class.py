@@ -19,7 +19,7 @@ class Spec(object):
 
     def contains_any_of(self, phrases):
         return filter(
-            lambda x: len(x) != 0,
+            lambda x: len(x) != 0 or x == '',
             flatten(
                 map(
                     lambda x:

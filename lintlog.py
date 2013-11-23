@@ -1,6 +1,7 @@
 import math
 from colorama import Fore, Style
 
+
 def report(result, opts):
     opts = opts if opts != None else {}
     log_heading('Newslint')
@@ -20,8 +21,10 @@ def log_heading(heading):
     print
     print(Fore.CYAN + 'Joblint')
 
+
 def log_success():
     print(Fore.GREEN + 'No issues found with the job spec!')
+
 
 def log_fail_charts(points):
     data_set = [
@@ -37,20 +40,24 @@ def log_fail_charts(points):
     for datum in data_set:
         log_fail_chart(datum['label'], max_label_length, datum['value'], max_value)
 
+
 def log_fail_chart(label, max_label_length, value, max_value):
-    full_label = label + ' Issues';
+    full_label = label + ' Issues'
     bar = ''
     for i in range(int(math.ceil(value))):
-        bar += '%'
+        bar += u'\u2588'
     num = '(' + str(int(value)) + ')'
     print(Style.NORMAL + Fore.WHITE + full_label + ' ' * (max_label_length - len(full_label) + 15) + Fore.WHITE + Style.DIM + '|' + Style.NORMAL + Fore.YELLOW + bar + ' ' * (10 - len(bar)) + Fore.WHITE + Style.DIM + num)
+
 
 def max_val(arr):
     return max(arr)
 
+
 def log_messages(type_cat, color, verbose, messages):
     for msg in messages:
         log_message(type_cat, color, verbose, msg)
+
 
 def log_message(type_cat, color, verbose, message):
     if color == 'yellow':
