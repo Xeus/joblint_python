@@ -23,7 +23,7 @@ class Spec(object):
             flatten(
                 map(
                     lambda x:
-                        re.findall(x, self._body_normalized),
+                        re.findall(prepare_phrase(x), self._body_normalized),
                         phrases
                 )
             )

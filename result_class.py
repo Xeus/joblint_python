@@ -29,11 +29,14 @@ class Result(object):
     def clear_current_rule(self):
         del self.current_rule
 
+    def _add_mentions(self, mentions):
+        self.mentions += mentions
+
     def _add_message(self, type_cat, msg, evidence):
         new_msg = {
             'message': msg,
             'detail': self.current_rule['desc'] if self.current_rule != None else '',
-            'evidence': evidence if evidence != None else []
+            'evidence': ', '.join(set(evidence)) if evidence != None else []
         }
 
         if type_cat == 'errors':
@@ -43,6 +46,9 @@ class Result(object):
         elif type_cat == 'warnings':
             self.warnings.append(new_msg)
 
+
+    def add_mentions(self, mentions):
+        self._add_mentions(mentions)
 
     def add_error(self, msg, evidence):
         self._add_message('errors', msg, evidence)
