@@ -1,5 +1,5 @@
 import math
-from colorama import Fore, Style
+from colorama import Fore, Style, Back
 
 
 def report(result, opts):
@@ -15,6 +15,18 @@ def report(result, opts):
         log_messages('warning', 'yellow', opts['verbose'], result.warnings)
         log_messages('notice', 'grey', opts['verbose'], result.notices)
     print
+    msgs = result.errors + result.warnings + result.notices
+    mentions = []
+    for msg in msgs:
+        mentions.append(msg['evidence'])
+    mentions = filter(len, mentions)
+    log_mentions(set(mentions))
+
+
+def log_mentions(mentions):
+    if len(mentions) > 0:
+        print(Style.NORMAL + Fore.WHITE + Back.BLACK + 'Mentioned: ' + ', '.join(mentions))
+        print
 
 
 def log_heading(heading):
@@ -23,7 +35,7 @@ def log_heading(heading):
 
 
 def log_success():
-    print(Fore.GREEN + 'No issues found with the job spec!')
+    print(Back.BLACK + Fore.GREEN + 'No issues found with the newslint spec!')
 
 
 def log_fail_charts(points):

@@ -2,7 +2,7 @@ import re
 
 bubble_job_titles = [
     re.compile('gurus?'),
-    re.compile('hero(:?es)'),
+    re.compile('hero(?:es|)'),
     re.compile('ninjas?'),
     re.compile('rock\s*stars?'),
     re.compile('super\s*stars?')
@@ -17,7 +17,7 @@ temptations = [
     re.compile('keg(?:erator)?s?'),
     re.compile('lagers?'),
     re.compile('nerf\s*guns?'),
-    re.compile('ping\s*pong?'),
+    re.compile('ping[\s-]*pong?'),
     re.compile('pints?'),
     re.compile('pizzas?'),
     re.compile('play\s*stations?'),
@@ -26,9 +26,10 @@ temptations = [
     'table football',
     re.compile('table\s*tennis'),
     re.compile('wiis?'),
-    re.compile('xbox(?:es|s)?'),
+    re.compile('xbox(?:es|)?'),
     re.compile('massages?')
 ]
+
 
 def test_titles(self, spec, result):
     bubble_job_mentions = spec.contains_any_of(bubble_job_titles)
@@ -40,6 +41,7 @@ def test_titles(self, spec, result):
         result.add_culture_fail_points(len(bubble_job_mentions) / 2)
         result.add_realism_fail_points(1)
 
+
 def test_temptations(self, spec, result):
     temptation_mentions = spec.contains_any_of(temptations)
     if (len(temptation_mentions) > 0):
@@ -50,6 +52,7 @@ def test_temptations(self, spec, result):
         )
         result.add_culture_fail_points(1)
         result.add_recruiter_fail_points(len(temptation_mentions) / 2)
+
 
 def define_rules(linter):
     # Job title fails
